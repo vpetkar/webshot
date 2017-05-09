@@ -3,10 +3,9 @@ require "singleton"
 module Webshot
   class Screenshot
     include Capybara::DSL
-    include Singleton
 
     def initialize(opts = {})
-      Webshot.capybara_setup!
+      Webshot.capybara_setup!(opts.fetch(:mobile, false))
       width  = opts.fetch(:width, Webshot.width)
       height = opts.fetch(:height, Webshot.height)
       user_agent = opts.fetch(:user_agent, Webshot.user_agent)

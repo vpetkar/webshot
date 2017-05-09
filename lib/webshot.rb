@@ -28,7 +28,7 @@ module Webshot
   end
 
   # Capibara setup
-  def self.capybara_setup!
+  def self.capybara_setup!(mobile)
     # By default Capybara will try to boot a rack application
     # automatically. You might want to switch off Capybara's
     # rack server if you are running against a remote application
@@ -37,6 +37,8 @@ module Webshot
       Capybara::Poltergeist::Driver.new(app, {
         # Raise JavaScript errors to Ruby
         js_errors: false,
+        window_size: mobile ? [320, 480] : [width, height],
+        screen_size: mobile ? [320, 480] : [width, height],
         # Additional command line options for PhantomJS
         phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any']
       })
